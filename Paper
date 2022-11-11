@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% LaTeX Template For MATH 490 @ VCU
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\title{The Pythagorean Theorem}
+\author{Keanu J. Ammons}
+\date{November 20th, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+ Among all the mathematical proofs to exist, perhaps the most well-known is the Pythagorean theorem, aptly named after the Greek philosopher who first proved its existence. Pythagoras of Samos, a Greek philosopher who lived between 570 BCE to circa 490 BCE, is credited with the formal proof of the theorem and eponymous foundation of Pythagoreanism. Although Pythagoras is credited with the formal proof and documentation of the mathematical relationship, prior ancient civilizations inadvertently utilized Pythagorean triples in construction and architecture. As documented in the Babylonian clay tablet Plimpton 322 from the Yale University Museum, ancient Mesopotamian cultures were aware of Pythagorean triples and their practical applicability within 1900–1600 BCE. The great accuracy in which Babylonian scholars generated Pythagorean triples suggests the discovery of a systematic formula to produce them. \newline
+
+Moreover, Egyptian scholars informally identified Pythagorean triples by recognizing the fundamental 3,4,5 relationship. Such mathematical relationships were used to optimize the construction of buildings and structures. The remarkable relationship of the Pythagorean identity, whether first discovered by Egyptian or Mesopotamian cultures, demonstrates the universality of mathematics. In this brief research paper, the Pythagorean theorem will be stated, proved, and discussed in-depth with respect to Euclid's formulation.
+
+\section{Pythagorean Theorem}
+
+The Pythagorean theorem is a description of the relationship between right triangle side lengths. The theorem is formally stated as follows: \newline
+
+\textit{"The area of the square built upon the hypotenuse of a right triangle is equal to the sum of the areas of the squares upon the remaining sides."}
+\newline
+
+More generally, the Pythagorean theorem suggests the square of the hypotenuse of a right triangle is equivalent to the sum of the square of the opposite and adjacent side lengths. As shown in the diagram and equation in figure 1.)
+
+\includegraphics[scale=.49]{Images/Right_Triangles.png}
+\newline
+\centerline{\textit{Figure 1: Right triangle of side lengths a, b, and c with the Pythagorean theorem}} \medskip
+
+Each proof of the theorem will aim to demonstrate how the opposite and adjacent side lengths (b and a) translate into the hypotenuse. A list of three unique proofs will be provided in the paragraphs below. \newline
+
+\textbf{Proof 1.0 Method of Dissection:} Dissection involves the division of a large square into four right triangles and a smaller square. The 12th century Hindu scholar Bhaskara (Bhaskara II) is credited with the creation and documentation of this proof. Pythagoras himself may have utilized such a proof to generate his theorem. \newline
+
+\textit{Let a, b, and c be rational numbers. Assume an  arbitrary square of area \((a+b)^2\) as shown in figure 2. Assume the area \((a+b)^2\) is divided into four right triangles of individual area \((1/2)(ab)\) and a square of area \((c)^2\)}. Consider the following simplification. \newline
+
+\centerline{\((a+b)^2 = 2ab + c^2\)} \medskip
+\centerline{\(a^2 + 2ab + b^2 = 2ab + c^2\)} \medskip
+\centerline{\(c^2 = a^2 + b^2\)} \medskip
+
+\textit{Since \(c^2 = a^2 + b^2\) is the most simplified expression, the Pythagorean theorem is proven.}
+
+\centerline{\includegraphics[scale=.28]{Images/Dissection_Proof.png}}
+\centerline{\textit{Figure 2: Dissected image of a square for proof 1.}} \medskip
+
+\textbf{Proof 2.0 Trapezoidal Dissection:} The trapezoidal dissection method was first derived by James A. Garfield in 1876 while serving as a member of congress. Mr. Garfield's proof would eventually be published on April 1, 1876 in the \textit{New-England Journal of Education}. The simplicity of the proof is highlighted by use of a trapezoid as opposed to a square. \newline
+
+\textit{Let a, b, and c be rational numbers. Assume an arbitrary trapezoid of area \((1/2)(a+b)(a+b)\) as shown in figure 3. Assume the trapezoid is divided into two triangles of individual area \((1/2)(ab))\) and one triangle of area \((1/2)c^2\). Consider the following simplification.} \newline
+
+\centerline{\((1/2)(a+b)(a+b) = (2/2)(ab)) + (1/2)c^2\)} \medskip
+\centerline{\(a^2 + 2ab + b^2 = 2ab + c^2\)} \medskip
+\centerline{\(a^2 + b^2 = c^2\)} \medskip
+
+\textit{Since \(c^2 = a^2 + b^2\) is the most simplified expression, the Pythagorean theorem is proven.} \newline
+
+\centerline{\includegraphics[scale=.60]{Images/Trapazoidal_Proof.png}}
+\centerline{\textit{Figure 3: Dissected image of a trapezoid for proof 2.}} \medskip
+
+\textbf{Proof 3.0 Einstein's Boyhood Proof:} Albert Einstein, renown German-American mathematician and theoretical physicist, discovered a unique proof of the Pythagorean theorem during his boyhood (although the exact age is unknown). Such a proof involves the use of similar triangles to identify the Pythagorean relationship.
+
+\section{Euclid's Formula}
+
+\section{Conclusion}
+
+\section{References}
+
+https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_Pythagoras/
+
+https://www.isinj.com/mt-usamo/Elementary%20Number%20Theory%20-%20Underwood%20Dudley%20(2008).pdf
+
+https://www.cut-the-knot.org/pythagoras/
+
+https://www.maa.org/press/periodicals/convergence/mathematical-treasure-james-a-garfields-proof-of-the-pythagorean-theorem
+
+https://paymentproof2020.blogspot.com/1974/05/proof-pythagorean-theorem.html
+
+
+\end{document}
