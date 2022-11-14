@@ -1,0 +1,359 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\newcommand\authormark[1]{\textsuperscript{#1}}
+\usepackage{amsmath,amssymb}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage[rightcaption]{sidecap}
+\usepackage[colorlinks=true,bookmarks=false,citecolor=blue,urlcolor=blue]{hyperref}
+
+\begin{document}
+
+\title{\textbf{Single-Hop Parallel Algorithm Comparison}}
+\author{Dr. Derek R. Gaston,\authormark{1} Keanu J. Ammons\authormark{2}}
+\date{August 18, 2022\\}
+\graphicspath{{./Images/}}
+
+\maketitle
+
+\address{\authormark{1} Computational Frameworks, Idaho National Laboratory, Idaho Falls, ID, \indent \indent 83415\\} 
+\address{\indent \authormark{2} Department of Engineering, Western Carolina University, 1 University \indent \indent Way, Cullowhee, NC 28723}
+
+\section{Abstract}
+
+To address the need for high performance parallel communication algorithms for full-core nuclear reactor neutronics simulations, Idaho National Laboratory (INL) developed the Scalable Massively Asynchronous Ray Tracing (SMART) algorithm. This algorithm performs sparse communication of data structures while overlapping communication and computation, a key to achieving efficiency. This scalability study compared the computation time of 6 sparse data exchange algorithms in both strong and weak scaling experiments to determine the limitations of single-hop SMART algorithm; multiple single-hop algorithm parameters were independently scaled and analyzed. Extensive testing revealed the effectiveness and limitations of the single-hop SMART algorithm in both overlapping and non-overlapping communication models. Observed bottlenecks in single-hop implementation are discussed, and recommendations for further study are provided. \\
+
+\textbf{Keywords:} MPI, Single-hop, Multi-hop, Overlapping, Non-Overlapping, Strong Scaling, Weak Scaling
+
+\newpage
+
+\section{Introduction}
+
+Full-core reactor simulations require scalable, accurate, and efficient algorithms capable of modeling various interconnected physical properties. Message Passing Interface (MPI) is the most widely used software library in HPC clusters for scientific computing applications; the library is the unofficial de facto standard for super computing and parallel algorithm implementation. With respect to multi-physics simulation tools, algorithm scalability given a large number of resources is of high importance; therefore, special attention to algorithm performance in strong and weak scaling should be given. \\
+
+\noindent Underpinning the fully asynchronous (\verb|full_async|) SMART algorithm is a multi-hop implementation scheme. Multi-hop methodology allows data to move through multiple MPI ranks without global synchronization. By contrast, single-hop methodology requires all ranks to globally synchronize between each communication \cite{gaston2020parallel}. The single-hop methodology is, by design, less efficient than the multi-hop counterpart. Single-hop implementation will limit algorithms that attempt to overlap communication and computation. However, there is limited research available to adequately describe these limitations --- understanding why and how such limitations exist --- in single-hop implementation. Hence, the focus of this research paper is to provide more extensive documentation of single-hop limitations, and provide a adequate discussion of why such limitations exist.
+
+\section{Motivating Example}
+
+To begin a study of sparse data exchange algorithms, the data from Dr. Derek Gaston's 2020 MIT thesis dissertation, originally produced on the INL Lemhi supercomputer, was reproduced on Sawtooth \cite{gaston2020parallel}. The reader is encouraged to refer to chapter 6 of Dr. Gaston's thesis dissertation (provided in the references section) for additional context. This initial study offered a point of comparison between the timing performance of sparse data exchange algorithms on the Sawtooth and Lemhi supercomputers respectively. The sparse data exchange algorithms originally contained three user-define arguments: message size, number of neighbors, and number of iterations. Message size refers to the number of double precision numbers that are to be communicated between ranks of the MPI system. The number of neighbors refers to the neighbors of a node in graphical topology. Finally, the number of iterations simply refers to the number of computations completed in a simulation.\\
+
+\noindent Figures 1 and 2 show the results of both strong and weak scaling methods on the Sawtooth supercomputer. Strong scaling data was reproduced using 128 nodes, 4092 processes, and 26 neighbors, 100 message size, and 10 iterations. Weak scaling data was reproduced with 25 nodes, a process range of [1, 1000], message size of 100, 26 neighbors, and 10 iterations. (In all instances, \verb|full_async| and \verb|SMART| refer to the same algorithm). \\
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=8cm]{SS_Scaling_Data_Reproductiom.png}
+    \caption{Reproduced Strong Scaling Experiment}
+    \label{fig:SS_Scaling_Data_Reproduction}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{Weak_Scaling_Data_Reproduction.png}
+    \caption{Reproduced Weak Scaling Experiment}
+    \label{fig:SS SS_Origin_Data}
+\end{figure}
+
+\noindent Both the results from the 2020 experiment and 2022 reproduction have the same general behavior. The end behavior of both the weak and strong scaling experiment indicate that \verb|full_async| is the fastest algorithm overall. The most significant difference between the Lemhi and Sawtooth supercomputer timing data is the presence of noise, as highlighted in figure 1 \cite{gaston2020parallel}. Noise can be caused by a variety of factors in an HPC cluster, including node placement, the number of active jobs in the system, internal computer scheduling. In the given case, A potential reason for this apparent noise is likely due to the difference in supercomputer usage between 2020 and 2022, as shown by figures 3 and 4. The 2020 Lemhi experiment was the only active job operating on the cluster, a contrast to the Sawtooth reproduction. This observation supports the probability that noise is responsible for data variability in figures 1 and 2.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=9cm]{Images/Lemhi.png}
+    \caption{Lemhi Core Usage (Jan. & March 2020)}
+    \label{fig:Lemhi_Core_Data}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{Images/Sawtooth.png}
+    \caption{Sawtooth Core Usage (July & August 2020)}
+    \label{fig:Sawtooth_Core_Data}
+\end{figure}
+
+\section{Testing Methods}
+
+The 6 algorithms studied were analyzed for performance by performing both strong and weak scaling models (as proposed by Dr. Gene Amdahl and Dr. John Gustafson) \cite{amdahl1967validity} \cite{gustafson1988reevaluating}. Considering the inherent difficulty in modeling computer timing performance in scalability studies, raw data was modeled using cubic spline interpolation and supplemented by a margin of error estimation at measured data points. \\
+
+\noindent In order to gain a full understanding of single-hop limitations, this experiment added three new algorithm parameters: \verb|work cycles|, \verb|!overlapping|, and \verb|sample size|. The 'work cycles' parameter refers to the number of computations performed on a given message size. Such a parameter is intended to simulate the workload caused by intermediate calculations after receiving a given amount of data. The '!overlapping' parameter refers to whether intermediate calculations will be computed using an overlapping or non-overlapping methodology. Finally, the 'sample size' allows for subsequent mean and standard deviation calculations to be performed. The total number of algorithm arguments can be summarized as follows:
+
+\begin{lstlisting} 
+    /sparse-opt 
+        number_of_neighbors 
+        message_size 
+        number_of_iterations 
+        work_cycles 
+        sample_size 
+        overlapping_vs_non_overlapping 
+\end{lstlisting}
+
+\noindent The work argument has a time complexity of \(O(a * b * c)\) and was designed to simulate an inflated computation time due to elevated workload. Algorithm 1 shows the general design of the work functions implemented; the work function was slightly modified in some sparse data algorithms to maintain consistent time complexity throughout the program.
+
+\begin{algorithm}[H]
+        \caption{Work Function}
+        \begin{enumerate}
+            \begin{algorithmic} \\
+            \If{$ work \neq 0 $}
+                \For{$mapSize$}
+                    \For{$messageSize$}
+                        \For{$i < work$}
+                            \State $data[i] = std::exp(power);$
+                        \EndFor
+                    \EndFor
+                \EndFor
+            \EndIf
+            \end{algorithmic}
+        \end{enumerate}
+\end{algorithm} 
+
+\noindent In total, this study experimented by scaling the given algorithm parameters in 9 unique ways, each of which are organized as listed below: \\
+
+\noindent \textbf{Experiment 1 and 2} consisted of scaling the number of processes given a fixed message size of 100 double precision numbers, 26 adjacent neighbors, 10 sample iterations, and 1 cycle of work per message. Non-overlapping communication was used as processes were scaled logarithmically from [1, 2000] processes between [1, 50] nodes. \\
+
+\noindent \textbf{Experiment 3 and 4} consisted of logarithmically scaling the amount of work \textbf{after} \verb|MPI_Irecv| between [1, 10000] using non-overlapping communication and computation. The number of processes were fixed at 4096 processes with 128 nodes, 26 neighbors, and 10 sample iterations. \\
+
+\noindent \textbf{Experiment 5 and 6} consisted of logarithmically scaling the number of neighbors between [1, 1000] using non-overlapping and overlapping communication and computation for each respective experiment. The number of processes, neighbors, messages, etc. were maintained the same as experiment 3 and 4. \\
+
+\noindent \textbf{Experiment 7 and 8} consisted of logarithmically scaling the message size between [1, 10000] using non-overlapping and overlapping communication and computation for each respective experiment. The number of processes, neighbors, messages, etc. were maintained the same as experiment 3 and 4. \\
+
+\noindent \textbf{Experiment 9} consisted of scaling the number of processes given a fixed message size of 100, 26 adjacent neighbors, 10 sample iterations, and only 1 cycle of work per message. Non-overlapping communication was used as processes were scaled logarithmically from [400, 10000] processes between [1, 250] nodes. \\
+
+\noindent From the test parameters listed above, the limitations of single-hop implementation should be readily identified.
+
+\section{Testing and Results}
+
+Following the previously outlined test procedures, the figures below show the approximate timing values obtained from Sawtooth. Three tests were conducted per experiment, and the test with the least number of outliers was selected for graphing. In order to remain consistent with the graphing procedure from the original sparse-data exchange study, each graph shows the minimum algorithm timing based on the sample size.
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Increasing_Processes (1).png} % first figure itself
+        \caption{Experiment 1 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Increasing_Processes_subplot (1).png} % second figure itself
+        \caption{Experiment 1 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Increasing_Processes_Overlapping (1).png} % first figure itself
+        \caption{Experiment 2 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Increasing_Processes_Overlapping_subplot (1).png} % second figure itself
+        \caption{Experiment 2 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Increasing_Work_NonOverlapping (1).png} % first figure itself
+        \caption{Experiment 3 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Increasing_Work_NonOverlapping_subplot (1).png} % second figure itself
+        \caption{Experiment 3 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Work_After_Recv_Overlapping.jpg} % first figure itself
+        \caption{Experiment 4 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Work_After_Recv_Overlapping_Sublot (1)} % second figure itself
+        \caption{Experiment 4 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Message_Size_Overlapping (1).png} % first figure itself
+        \caption{Experiment 5 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Message_Size_Overlapping_subplot (1).png} % second figure itself
+        \caption{Experiment 5 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Message_Size_NonOverlapping (1).png} % first figure itself
+        \caption{Experiment 6 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Increasing_Work_NonOverlapping_subplot (1).png} % second figure itself
+        \caption{Experiment 6 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Number_Of_Neighbors_Overlapping (1).png} % first figure itself
+        \caption{Experiment 7 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Overlapping/Number_Of_Neighbors_Overlapping_subplot (1).png} % second figure itself
+        \caption{Experiment 7 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Number_Of_Neighbors (1).png} % first figure itself
+        \caption{Experiment 8 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{NonOverlapping/Number_Of_Neighbors_subplot (1).png} % second figure itself
+        \caption{Experiment 8 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Ten_Thou_Processes/TenThou_Processes.png} % first figure itself
+        \caption{Experiment 9 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=6.0cm\textwidth]{Ten_Thou_Processes/TenThou_Processes_subplot.png} % second figure itself
+        \caption{Experiment 9 Subplot}
+    \end{minipage}
+\end{figure} \\
+
+\section{Data Analysis}
+
+For data analysis, a cubic spline and confidence interval is shown for the fastest recorded algorithm. The margin of error is also listed for each data point. The figures below show the best algorithm (in terms of timing performance) with the cubic spline curve fit. \\ 
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm\textwidth]{Images/Increasing_Processes_NonOverlapping.png} % first figure itself
+        \caption{Experiment 1 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm\textwidth]{Images/Increasing_Processes_Overlapping.png} % second figure itself
+        \caption{Experiment 2 Graph}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm\textwidth]{Images/Increasing_Work_NonOverlapping.png} % first figure itself
+        \caption{Experiment 3 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm\textwidth]{Images/Increasing_Work_Overlapping.png} % second figure itself
+        \caption{Experiment 4 Graph}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm, height=5.5cm\textwidth]{Images/Increasing_Number_Of_Neighbors_NonOverlapping.png} % first figure itself
+        \caption{Experiment 5 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm\textwidth]{Images/Increasing_Number_Of_Neighbors_Overlapping_isend.png} % second figure itself
+        \caption{Experiment 6 Graph}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure} [H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm\textwidth]{Images/Increasing_Message_Size_NonOverlapping.png} % first figure itself
+        \caption{Experiment 7 Graph}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=7.0cm\textwidth]{Images/Changing_Message_Size_Overlapping.png} % second figure itself
+        \caption{Experiment 8 Graph}
+    \end{minipage}
+\end{figure} \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{Images/10000_Processes_NonOverlapping.png}
+    \caption{Process Scaling [400,10000]}
+    \label{fig:10000_Processes_NonOverlapping}
+\end{figure}
+
+\section {Discussion of Results}
+
+With new data, a more comprehensive study on the subject of single-hop limitations can now begin. A viable point of contention may arise over the best method of measuring timing data. As mentioned previously, all experiments gathered the average timing data from a sample size of 10, and the minimum time from this sample was recorded. The average timing includes the full range of observed values for a single experiment, including outliers caused by noise fluctuations. Hence, three tests were conducted per experiment, and the best test of three was selected for analysis. In some cases, as will be discussed in this section, the minimum and average timing measurements disagreed on which algorithm performed the best. In any case, both the minimum and average time should both be considered in determining the most efficient algorithm. Due to the presence of outliers, timing averages may only serve to reinforce established observations or cast reasonable doubt; it should not serve as an independent conclusion. \\
+
+\noindent The \verb|full_async| algorithm was undoubtedly the fastest algorithm in terms of weak scaling. Minimum timing progression remained almost constant in both overlapping and non-overlapping cases when processes were scaled between [1, 2000] and [400, 10000]. Average timing values agree that \verb|full_async| is the fastest algorithm for the non-overlapping case; however, the overlapping timing averages provided mixed results, most likely due to outliers in the data. Moreover, weak scaling of \verb|full_async| with 400 to 10,000 processes followed a similar trend to the experimental results reported by the 2020 Lemhi weak scaling experiment \cite{gaston2020parallel}. This relatively constant timing over a large number of processes aligns with expectations, and serves as sufficient evidence to the capabilities of single-hop implementation for weak scaling applications. \\
+
+\noindent Increasing the amount of work per iteration returned reasonable results. The \verb|full_async| algorithm was the fastest algorithm in the overlapping scenario, and \verb|isend_irecv| was the fastest in the non-overlapping case. Average timing data supports both observations: \verb|full_async| was the fastest in the overlapping scenario, and \verb|isend_irecv| was the fastest in the non-overlapping case. Scaling the number of neighbors between 1 and 1000 provided mixed results for both minimum and average timing progression. In the non-overlapping case, both the average and minimum timing concur that \verb|isend_irecv| was the fastest algorithm. By contrast, the overlapping timing averages suggested \verb|full_async| was the fastest algorithm. Finally, increasing the message size logarithmically between 1 and 10,000 double precision numbers resulted \verb|isend_recv_in_order| attaining the fastest time for the non-overlapping. Yet, by contrast, \verb|full_async| attains the fastest timing average for the overlapping case. \\ 
+
+\noindent However, there are several critical questions that should be addressed when reviewing these results. Namely, there is contention surrounding why \verb|full_async| was not consistently the fastest algorithm for message size and neighbor weak scaling experiments. Upon further review of the sparse data exchange algorithm, several realizations identified potential bottlenecks associated with single-hop implementation. All of the sparse data exchange algorithms utilized a randomized neighbor selection implemented with a \verb|srand(rank + time(NULL));| methodology, as shown in algorithm 2. This method of implementation, however, introduces a sizeable time bottleneck as neighbors are selected; rand() is not prevented from accidentally selecting neighbors that have already been selected, meaning the time complexity has a potential for \(O(\infty)\) as random values are selected continuously until a unique neighbor is found. \\
+
+\begin{algorithm}[H]
+        \caption{Random Neighbor Selection}
+        \begin{enumerate}
+            \begin{algorithmic} \\
+            \State srand(rank + time(NULL));
+                \For {$ neighbors $}
+                    \While {$ new neighbors \neq old neighbors$}
+                        \State rand() \% size; 
+                    \EndWhile
+                \EndFor
+            \end{algorithmic}
+        \end{enumerate}
+\end{algorithm} 
+
+\noindent Such an issue perpetuates as solutions are applied: using a deterministic method of identifying the number of available neighbors introduces the possibility of bias to an otherwise random selection algorithm. \emph{Efficent} solutions to this issue are not apparent for single-hop. The benefits of using a multi-hop implementation scheme, one that is applied in later chapters of the sparse data exchange study, offer a dynamic solution to the issues presented here \cite{gaston2020parallel}. \\
+
+\noindent A secondary issue observed after re-evaluating the sparse data exchange algorithms revealed a potential issue with message reception after MPI receive operations. Depending on the specified number of neighbors and message size, ranks could receive an unequal number of messages. Such an issue could not be observed in the original sparse data exchange study, as the communication of several messages more or less to a given process produced a negligible time difference that was indiscernible from noise. However, a nonzero work argument amplified otherwise negligible time differences to a significant discrepancy The inclusion of work per message amplified this issue and identified another bottleneck for single hop implementation. Methods of resolving this issue are reserved for future studies on the subject of multi-hop parallel algorithm comparison.
+
+\section{Conclusion}
+
+This research paper aimed to investigate the limitations of single-hop implementation from the sparse data exchange algorithm. The inclusion of additional test parameters and multiple experiments provided a plethora of data that modeled the general behavior of each of algorithm studied and identified a significant bottleneck.The most limitation identified in this study was the artificial bottleneck caused by an unequal distribution of messages to adjacent neighbors in a simulated mesh. This limitation is an issue largely caused by the choice methodology used to distribute work to a given number of neighbors. Future work should investigate the abilities of the sparse data exchange algorithms with new parameters in multi-hop implementation and experiment with optimization of neighbor selection.
+
+\pagebreak
+
+\bibliographystyle{ieeetr}
+
+\bibliography{references.bib}
+
+\end{document}
