@@ -7,6 +7,8 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{amssymb}
+
 \graphicspath{ {./images/} }
 
 \title{The Pythagorean Theorem}
@@ -64,9 +66,36 @@ Each proof of the theorem will aim to demonstrate how the opposite and adjacent 
 \centerline{\includegraphics[scale=.60]{Images/Trapazoidal_Proof.png}}
 \centerline{\textit{Figure 3: Dissected image of a trapezoid for proof 2.}} \medskip
 
-\textbf{Proof 3.0 Einstein's Boyhood Proof:} Albert Einstein, renown German-American mathematician and theoretical physicist, discovered a unique proof of the Pythagorean theorem during his boyhood (although the exact age is unknown). Such a proof involves the use of similar triangles to identify the Pythagorean relationship.
+\textbf{Proof 3.0 Einstein's Boyhood Proof:} Albert Einstein, a renown German-American mathematician and theoretical physicist, discovered a unique proof of the Pythagorean theorem during his boyhood (although the exact age is unknown). Such a proof involves the use of similar triangles to identify the Pythagorean relationship. \newline
+
+\textit{Let a, b, c, and f be rational numbers. Assume a, b, and c are the hypotenuse lengths of three similar triangles where c > b > a as shown in figure 4. Moreover, assume that the sum of the two smaller triangles is equal to the area of the larger. Since each triangle is similar in proportion, we may write the following } \newline
+
+\centerline{ \(fa^2 + fb^2 = fc^2\) } \medskip
+
+\textit{Since f is a nonzero scaling factor in each similar triangle, we may write \(a^2 + b^2 = c^2\) which proves the Pythagorean theorem.}
+
+\centerline{\includegraphics[scale=0.5]{Images/Similar_Triangle_Proof.png}}
+\centerline{\textit{Figure 4: Image of similar triangle areas used in proof 3.}}
+
+\section{The Pythagorean Theorem and its Converse}
+
+The Pythagorean theorem is known to be a bi-conditional statement which means that both the converse and the contrapositive are true. Therefore, defining the the and proving its converse will further define the theorem. Based upon the statement provided in section 2, a converse and its respective proof is listed below.
+
+\textit{If a triangle has a hypotenuse equal to  \(a^2 + b^2 = c^2\), then it must have one angle equal to 90 degrees.} \newline
+
+\textbf{Converse Proof:} \newline
+
+\textit{Let $\angle{ABC}$ and $\angle{DFE}$ be two triangles as shown in figure 5. Assume triangle $\angle{ABC}$ does not have any angle equal to \(90^o\). Also assume \(a^2 + b^2 = |ED|^2\) holds for the right triangle $\angle{DFE}$. Since \(a^2 + b^2 = |ED|^2\) holds for $\angle{DFE}$, we can write \(a^2 + b^2 = c^2\) for $\angle{ABC}$. According to the side side side (SSS) theorem, two triangles that share congruent sides are congruent. Therefore, $\angle{ABC}$ must have at least one angle equal to \(90^o\), which is a contradiction of the original assumption. Therefore, the converse of the Pythagorean theorem must be true. }
+
+\centerline{\includegraphics[scale=0.5]{Images/Two_Similar_Right_Triangles.png}}
+\centerline{\textit{Figure 5: Two triangles as described in the converse proof}}\medskip
+
+As demonstrated by the geometric proof described in this section, the converse of the Pythagorean theorem is true. Therefore, the Pythagorean theorem is a biconditional statement by definition. The results of this property has a wide variety of applications, as described in detail in section 5 of this paper.
 
 \section{Euclid's Formula}
+
+Pythagorean triples are a set of three numbers that obey the Pythagorean theorem. As the name implies, a triple such as 3,4, and 5 is satisfactory since 
+\(3^2 + 4^2 = 5^2\). Naturally, the equation \(n*3^2 + n*4^2 = n*5^2\) holds for all integer values n. Such a formula produces an infinite number of integer triples for some arbitrary value of n.
 
 \section{Conclusion}
 
@@ -81,6 +110,10 @@ https://www.cut-the-knot.org/pythagoras/
 https://www.maa.org/press/periodicals/convergence/mathematical-treasure-james-a-garfields-proof-of-the-pythagorean-theorem
 
 https://paymentproof2020.blogspot.com/1974/05/proof-pythagorean-theorem.html
+
+https://www.newyorker.com/tech/annals-of-technology/einsteins-first-proof-pythagorean-theorem
+
+https://geometryhelp.net/converse-of-the-pythagorean-theorem/
 
 
 \end{document}
