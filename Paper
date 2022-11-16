@@ -79,7 +79,7 @@ Each proof of the theorem will aim to demonstrate how the opposite and adjacent 
 
 \section{The Pythagorean Theorem and its Converse}
 
-The Pythagorean theorem is known to be a bi-conditional statement which means that both the converse and the contrapositive are true. Therefore, defining the the and proving its converse will further define the theorem. Based upon the statement provided in section 2, a converse and its respective proof is listed below.
+The Pythagorean theorem is known to be a bi-conditional statement which means that both the converse and the contrapositive are true. Therefore, defining the the and proving its converse will further define the theorem. Based upon the statement provided in section 2, a converse and its respective proof is listed below. \newline
 
 \textit{If a triangle has a hypotenuse equal to  \(a^2 + b^2 = c^2\), then it must have one angle equal to 90 degrees.} \newline
 
@@ -95,7 +95,39 @@ As demonstrated by the geometric proof described in this section, the converse o
 \section{Euclid's Formula}
 
 Pythagorean triples are a set of three numbers that obey the Pythagorean theorem. As the name implies, a triple such as 3,4, and 5 is satisfactory since 
-\(3^2 + 4^2 = 5^2\). Naturally, the equation \(n*3^2 + n*4^2 = n*5^2\) holds for all integer values n. Such a formula produces an infinite number of integer triples for some arbitrary value of n.
+\(3^2 + 4^2 = 5^2\). Naturally, the equation \(f(n) = n*3^2 + n*4^2 = n*5^2\) holds for all integer values n. Such a formula produces an infinite number of integer triples for some arbitrary value of n. Triples that follow the Pythagorean relationship, but do not have any common factors besides 1 are referred to as primitive Pythagorean triples. Note that primitive triples cannot be produced with the formula \(f(n)\). An example of such a triple is (5,12,13). \newline
+
+Euclid of Alexandria (or simply Euclid) was a Greek mathematician who is widely known as the "father of geometry" for his contributions to mathematics. Among Euclid's many proofs was a derivation of a formula to consistently and accurately produce primitive Pythagorean triples. The statement and proof of this theorem is as follows. \newline
+
+\textit{Three numbers (a,b,c) are considered primitive Pythagorean triples if and only if \( a = 4mn, b = m^2 - n^2,\) and \( c = m^2 + n^2 \) such that m > n > 0 where m and n are integers.} \medskip
+
+\textbf{Proof} : Let a, b, and c be positive integers. Assume \( a^2 + b^2 = c^2 \). It follows that \( (a/c)^2 + (b/c)^2 = 1 \) is true. Since the new function contains the point P(x,y) = (a/c,b/c) on the unit circle, assume a linear function exists connecting the points (a/c,b/b) and (-1,0) as shown in figure 6. Therefore, we may consider the following. \newline
+
+\centerline{m = \(  \Delta y /  \Delta x = (a/c) / (b/c + 1)\)} \medskip
+\centerline{y = m/n-1} \medskip
+\centerline{\(1 = x^2 + (m/n-1)^2 \)} \medskip
+\centerline{\( x^2 + (m^2x^2)/n^2 - 2m/n + 1 = 1 \)} \medskip
+\centerline{\( x^2 + (m^2x^2)/n^2 - 2m/n = 0 \)} \medskip
+\centerline{\( x(x + m^2/n^2 - 2(m/n) ) = 0 \)} \medskip
+\centerline{\( x + m^2/n^2 - 2(m/n) = 0 \)} \medskip
+\centerline{\( x = 2(m/n)/(1+m^2/n^2) \)} \medskip
+\centerline{\( x = (2mn)/(m^2 + n^2) \)} \medskip
+
+Substituting the newly derived value of x to solve for y will yield the following. \newline
+
+\centerline{\( y = (m/n)x - 1 \)} \medskip
+\centerline{\( (2m^2)/(m^2 + n^2) - 1 \)} \medskip
+\centerline{\( (2m^2 - m^2 + n^2)/(m^2 + n^2) \)} \medskip
+\centerline{\( (m^2 - n^2)/(m^2 + n^2) \)} \medskip
+
+Since both the values of x and y have been derived, the proof is now complete. \newline
+
+\centerline{\includegraphics[scale=0.5]{Images/Unit_Circule.png}} \medskip
+\centerline{\textit{Figure 6: Intersection diagram for the Euclidean proof.}}
+
+\section{Applications}
+
+
 
 \section{Conclusion}
 
@@ -115,5 +147,10 @@ https://www.newyorker.com/tech/annals-of-technology/einsteins-first-proof-pythag
 
 https://geometryhelp.net/converse-of-the-pythagorean-theorem/
 
+https://www.youtube.com/watch?v=xoU8bIOXdjw
+
+https://www.adrian.idv.hk/2012-08-09-euclid/
+
+https://medium.com/math-simplified/proving-euclids-formula-using-basic-geometry-30fb04ddd8c4
 
 \end{document}
