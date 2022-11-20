@@ -8,6 +8,9 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{amssymb}
+\usepackage{apacite}
+\usepackage{mathptmx}
+\usepackage{indentfirst}
 
 \graphicspath{ {./images/} }
 
@@ -21,9 +24,9 @@
 
 \section{Introduction}
 
- Among all the mathematical proofs to exist, perhaps the most well-known is the Pythagorean theorem, aptly named after the Greek philosopher who first proved its existence. Pythagoras of Samos, a Greek philosopher who lived between 570 BCE to circa 490 BCE, is credited with the formal proof of the theorem and eponymous foundation of Pythagoreanism. Although Pythagoras is credited with the formal proof and documentation of the mathematical relationship, prior ancient civilizations inadvertently utilized Pythagorean triples in construction and architecture. As documented in the Babylonian clay tablet Plimpton 322 from the Yale University Museum, ancient Mesopotamian cultures were aware of Pythagorean triples and their practical applicability within 1900–1600 BCE. The great accuracy in which Babylonian scholars generated Pythagorean triples suggests the discovery of a systematic formula to produce them. \newline
+ Among all the mathematical proofs to exist, perhaps the most well-known is the Pythagorean theorem, aptly named after the Greek philosopher who first proved its existence. Pythagoras of Samos, a Greek philosopher who lived between 570 BCE to 490 BCE, is credited with the formal proof of the theorem and foundation of Pythagoreanism (Morris, 1997). Although Pythagoras is credited with the formal proof and documentation of the mathematical relationship, prior ancient civilizations inadvertently utilized Pythagorean triples in construction and architecture. As documented in the Babylonian clay tablet Plimpton 322 from the Yale University Museum, ancient Mesopotamian cultures were aware of Pythagorean triples and their practical applicability between 1900–1600 BCE, well before Pythagoras' life (O'Connor, 2000). Moreover the great accuracy in which Babylonian scholars generated Pythagorean triples suggests the discovery of a systematic formula to produce them.  \newline
 
-Moreover, Egyptian scholars informally identified Pythagorean triples by recognizing the fundamental 3,4,5 relationship. Such mathematical relationships were used to optimize the construction of buildings and structures. The remarkable relationship of the Pythagorean identity, whether first discovered by Egyptian or Mesopotamian cultures, demonstrates the universality of mathematics. In this brief research paper, the Pythagorean theorem will be stated, proved, and discussed in-depth with respect to Euclid's formulation.
+Additional examples of the Pythagorean theorem are also apparent in ancient Egyptian cultures. Egyptian scholars informally identified Pythagorean triples by recognizing the fundamental 3,4,5 relationship. Such mathematical relationships were used to optimize the construction of buildings and structures. As shown by the geometric symmetry of the Pyramids of Giza, the application of the theorem is best demonstrated by ancient construction (O'Connor, 2000). The remarkable relationship of the Pythagorean identity, whether first discovered by Egyptian or Mesopotamian cultures, demonstrates the universality of mathematics. In this brief research paper, the Pythagorean theorem will be stated, proved, and discussed in-depth. Euclid's proof of the Pythagorean theorem will also be demonstrated and discussed.
 
 \section{Pythagorean Theorem}
 
@@ -32,15 +35,15 @@ The Pythagorean theorem is a description of the relationship between right trian
 \textit{"The area of the square built upon the hypotenuse of a right triangle is equal to the sum of the areas of the squares upon the remaining sides."}
 \newline
 
-More generally, the Pythagorean theorem suggests the square of the hypotenuse of a right triangle is equivalent to the sum of the square of the opposite and adjacent side lengths. As shown in the diagram and equation in figure 1.)
+More generally, the Pythagorean theorem suggests the square of the hypotenuse of a right triangle is equivalent to the sum of the square of the opposite and adjacent side lengths (Morris 1997). As shown in the diagram and equation in figure 1.
 
 \includegraphics[scale=.49]{Images/Right_Triangles.png}
 \newline
-\centerline{\textit{Figure 1: Right triangle of side lengths a, b, and c with the Pythagorean theorem}} \medskip
+\centerline{\textit{Figure 1: Right triangle of side lengths a, b, and c with the Pythagorean theorem (Burton, 2007).}} \medskip
 
-Each proof of the theorem will aim to demonstrate how the opposite and adjacent side lengths (b and a) translate into the hypotenuse. A list of three unique proofs will be provided in the paragraphs below. \newline
+Each proof of the theorem demonstrates how the opposite and adjacent side lengths (b and a) are formulated into the hypotenuse. A list of three unique proofs will be provided in the paragraphs below. \newline
 
-\textbf{Proof 1.0 Method of Dissection:} Dissection involves the division of a large square into four right triangles and a smaller square. The 12th century Hindu scholar Bhaskara (Bhaskara II) is credited with the creation and documentation of this proof. Pythagoras himself may have utilized such a proof to generate his theorem. \newline
+\textbf{Proof 1.0 Method of Dissection:} Dissection involves the division of a large square into four right triangles and a smaller square. The 12th century Hindu scholar Bhaskara (Bhaskara II) is credited with the creation and documentation of this proof. Pythagoras himself may have utilized such a proof to generate his theorem (Bogomolny, 2016). \newline
 
 \textit{Let a, b, and c be rational numbers. Assume an  arbitrary square of area \((a+b)^2\) as shown in figure 2. Assume the area \((a+b)^2\) is divided into four right triangles of individual area \((1/2)(ab)\) and a square of area \((c)^2\)}. Consider the following simplification. \newline
 
@@ -51,11 +54,11 @@ Each proof of the theorem will aim to demonstrate how the opposite and adjacent 
 \textit{Since \(c^2 = a^2 + b^2\) is the most simplified expression, the Pythagorean theorem is proven.}
 
 \centerline{\includegraphics[scale=.28]{Images/Dissection_Proof.png}}
-\centerline{\textit{Figure 2: Dissected image of a square for proof 1.}} \medskip
+\centerline{\textit{Figure 2: Dissected image of a square for proof 1 (Bogomolny, 2016).}} \medskip
 
-\textbf{Proof 2.0 Trapezoidal Dissection:} The trapezoidal dissection method was first derived by James A. Garfield in 1876 while serving as a member of congress. Mr. Garfield's proof would eventually be published on April 1, 1876 in the \textit{New-England Journal of Education}. The simplicity of the proof is highlighted by use of a trapezoid as opposed to a square. \newline
+\textbf{Proof 2.0 Trapezoidal Dissection:} The trapezoidal dissection method was first derived by James A. Garfield in 1876 while serving as a member of congress. Mr. Garfield's proof would eventually be published on April 1, 1876 in the \textit{New-England Journal of Education}. The simplicity of the proof is highlighted by use of a trapezoid as opposed to a square (Kolpas). \newline
 
-\textit{Let a, b, and c be rational numbers. Assume an arbitrary trapezoid of area \((1/2)(a+b)(a+b)\) as shown in figure 3. Assume the trapezoid is divided into two triangles of individual area \((1/2)(ab))\) and one triangle of area \((1/2)c^2\). Consider the following simplification.} \newline
+\textit{Let a, b, and c be rational numbers. Assume an arbitrary trapezoid of area \((1/2)(a+b)(a+b)\) as shown in figure 3. Assume the trapezoid is divided into two triangles of individual area \((1/2)(ab)\) and one triangle of area \((1/2)c^2\). Consider the following simplification.} \newline
 
 \centerline{\((1/2)(a+b)(a+b) = (2/2)(ab)) + (1/2)c^2\)} \medskip
 \centerline{\(a^2 + 2ab + b^2 = 2ab + c^2\)} \medskip
@@ -64,46 +67,47 @@ Each proof of the theorem will aim to demonstrate how the opposite and adjacent 
 \textit{Since \(c^2 = a^2 + b^2\) is the most simplified expression, the Pythagorean theorem is proven.} \newline
 
 \centerline{\includegraphics[scale=.60]{Images/Trapazoidal_Proof.png}}
-\centerline{\textit{Figure 3: Dissected image of a trapezoid for proof 2.}} \medskip
+\centerline{\textit{Figure 3: Dissected image of a trapezoid for proof 2 (Bogomolny, 2016).}} \medskip
 
-\textbf{Proof 3.0 Einstein's Boyhood Proof:} Albert Einstein, a renown German-American mathematician and theoretical physicist, discovered a unique proof of the Pythagorean theorem during his boyhood (although the exact age is unknown). Such a proof involves the use of similar triangles to identify the Pythagorean relationship. \newline
+\textbf{Proof 3.0 Einstein's Boyhood Proof:} Albert Einstein, a renown German-American mathematician and theoretical physicist, discovered a unique proof of the Pythagorean theorem during his boyhood ( Einstein's exact age is not known). Such a proof involves the use of similar triangles to identify the Pythagorean relationship (Strogatz, 2015). The remarkable aspect of Einstein's proof is its inherent simplicity; logical relationships are used to prove the Pythagorean theorem. \newline
 
-\textit{Let a, b, c, and f be rational numbers. Assume a, b, and c are the hypotenuse lengths of three similar triangles where c > b > a as shown in figure 4. Moreover, assume that the sum of the two smaller triangles is equal to the area of the larger. Since each triangle is similar in proportion, we may write the following } \newline
+\textit{Let a, b, c, and f be rational numbers. Assume a right triangle $\angle{abc}$ exists as shown in figure 4. Then, triangle $\angle{abc}$ can be dissected about its \(90^o\) angle to generate three similar triangles such that a $<$ b $<$ c. We can recognize that the sum of the two smaller triangles is equal to the area of the larger. Since each triangle is similar in proportion, its dimensions can be expressed as a ratio of proportions as shown below. } \newline
 
 \centerline{ \(fa^2 + fb^2 = fc^2\) } \medskip
 
-\textit{Since f is a nonzero scaling factor in each similar triangle, we may write \(a^2 + b^2 = c^2\) which proves the Pythagorean theorem.}
+\textit{The coefficient f represents the ratio of proportions between each of the three triangles. Since f is a nonzero scaling factor in each similar triangle, we may write \(a^2 + b^2 = c^2\), which proves the Pythagorean theorem.}
+
+\centerline{\includegraphics[scale=0.5]{Images/Dissected_Triangle.png}}
+\centerline{\textit{Figure 4: Image of dissected right triangle (Strogatz, 2016).}}
 
 \centerline{\includegraphics[scale=0.5]{Images/Similar_Triangle_Proof.png}}
-\centerline{\textit{Figure 4: Image of similar triangle areas used in proof 3.}}
+\centerline{\textit{Figure 5: Image of similar triangle areas used in proof 3 (Strogatz, 2016).}}
 
 \section{The Pythagorean Theorem and its Converse}
 
-The Pythagorean theorem is known to be a bi-conditional statement which means that both the converse and the contrapositive are true. Therefore, defining the the and proving its converse will further define the theorem. Based upon the statement provided in section 2, a converse and its respective proof is listed below. \newline
+The Pythagorean theorem is known to be a bi-conditional statement, which means that both the converse and the contrapositive are true. Therefore, defining the the and proving its converse will further define the theorem. Based on the Pythagorean statement provided in section 2, the converse and its proof are as follows (Sarig, 2019). \newline
 
 \textit{If a triangle has a hypotenuse equal to  \(a^2 + b^2 = c^2\), then it must have one angle equal to 90 degrees.} \newline
 
-\textbf{Converse Proof:} \newline
-
-\textit{Let $\angle{ABC}$ and $\angle{DFE}$ be two triangles as shown in figure 5. Assume triangle $\angle{ABC}$ does not have any angle equal to \(90^o\). Also assume \(a^2 + b^2 = |ED|^2\) holds for the right triangle $\angle{DFE}$. Since \(a^2 + b^2 = |ED|^2\) holds for $\angle{DFE}$, we can write \(a^2 + b^2 = c^2\) for $\angle{ABC}$. According to the side side side (SSS) theorem, two triangles that share congruent sides are congruent. Therefore, $\angle{ABC}$ must have at least one angle equal to \(90^o\), which is a contradiction of the original assumption. Therefore, the converse of the Pythagorean theorem must be true. }
+\textbf{Converse Proof:} \textit{Let $\angle{ABC}$ and $\angle{DFE}$ be two triangles as shown in figure 6. Assume triangle $\angle{ABC}$ does not have any angle equal to \(90^o\). Also assume \(a^2 + b^2 = |ED|^2\) holds for the right triangle $\angle{DFE}$. Since \(a^2 + b^2 = |ED|^2\) holds for $\angle{DFE}$, we can write \(a^2 + b^2 = c^2\) for $\angle{ABC}$. According to the side side side (SSS) theorem, two triangles that share congruent sides are congruent. Therefore, $\angle{ABC}$ must have at least one angle equal to \(90^o\), which is a contradiction of the original assumption. Therefore, the converse of the Pythagorean theorem must be true. }
 
 \centerline{\includegraphics[scale=0.5]{Images/Two_Similar_Right_Triangles.png}}
-\centerline{\textit{Figure 5: Two triangles as described in the converse proof}}\medskip
+\centerline{\textit{Figure 6: Two triangles as described in the converse proof (Sarig, 2019).}}\medskip
 
 As demonstrated by the geometric proof described in this section, the converse of the Pythagorean theorem is true. Therefore, the Pythagorean theorem is a biconditional statement by definition. The results of this property has a wide variety of applications, as described in detail in section 5 of this paper.
 
 \section{Euclid's Formula}
 
 Pythagorean triples are a set of three numbers that obey the Pythagorean theorem. As the name implies, a triple such as 3,4, and 5 is satisfactory since 
-\(3^2 + 4^2 = 5^2\). Naturally, the equation \(f(n) = n*3^2 + n*4^2 = n*5^2\) holds for all integer values n. Such a formula produces an infinite number of integer triples for some arbitrary value of n. Triples that follow the Pythagorean relationship, but do not have any common factors besides 1 are referred to as primitive Pythagorean triples. Note that primitive triples cannot be produced with the formula \(f(n)\). An example of such a triple is (5,12,13). \newline
+\(3^2 + 4^2 = 5^2\). Naturally, the equation \(f(n) = n*3^2 + n*4^2 = n*5^2\) holds for all integer values n (Tailor, 2021). Such a formula produces an infinite number of integer triples for some arbitrary value of n. Triples that follow the Pythagorean relationship, but do not have any common factors besides 1 are referred to as primitive Pythagorean triples (Burton, 2007). Note that primitive triples cannot be produced with the formula \(f(n)\). An example of such a triple is (5,12,13). \newline
 
-Euclid of Alexandria (or simply Euclid) was a Greek mathematician who is widely known as the "father of geometry" for his contributions to mathematics. Among Euclid's many proofs was a derivation of a formula to consistently and accurately produce primitive Pythagorean triples. The statement and proof of this theorem is as follows. \newline
+Euclid of Alexandria (or simply Euclid) was a Greek mathematician who is colloquially referred to as the father of geometry for his contributions to mathematics. Among Euclid's many proofs was a derivation of a formula to consistently and accurately produce primitive Pythagorean triples (Burton, 2007). The statement and proof of this theorem is as follows. \newline
 
-\textit{Three numbers (a,b,c) are considered primitive Pythagorean triples if and only if \( a = 4mn, b = m^2 - n^2,\) and \( c = m^2 + n^2 \) such that m > n > 0 where m and n are integers.} \medskip
+\textit{Three numbers (a,b,c) are considered primitive Pythagorean triples if and only if \( a = 4mn, b = m^2 - n^2,\) and \( c = m^2 + n^2 \) such that m $>$ n $>$ 0 where m and n are integers.} \medskip
 
-\textbf{Proof} : Let a, b, and c be positive integers. Assume \( a^2 + b^2 = c^2 \). It follows that \( (a/c)^2 + (b/c)^2 = 1 \) is true. Since the new function contains the point P(x,y) = (a/c,b/c) on the unit circle, assume a linear function exists connecting the points (a/c,b/b) and (-1,0) as shown in figure 6. Therefore, we may consider the following. \newline
+\textbf{Proof} : \textit{ Let x,y,x,m, and n be integers. Assume \( x^2 + y^2 = z^2 \). It follows that \( (x/z)^2 + (y/z)^2 = 1 \) is true. Since the new function contains the point P(x,y) = (x/z,y/z) on the unit circle, assume a linear function exists connecting the points (x/z,y/z) and (-1,0) as shown in figure 6. Therefore, we may consider the following.} \newline
 
-\centerline{m = \(  \Delta y /  \Delta x = (a/c) / (b/c + 1)\)} \medskip
+\centerline{m = \( (x/z) / (y/z + 1)\)} \medskip
 \centerline{y = m/n-1} \medskip
 \centerline{\(1 = x^2 + (m/n-1)^2 \)} \medskip
 \centerline{\( x^2 + (m^2x^2)/n^2 - 2m/n + 1 = 1 \)} \medskip
@@ -113,44 +117,30 @@ Euclid of Alexandria (or simply Euclid) was a Greek mathematician who is widely 
 \centerline{\( x = 2(m/n)/(1+m^2/n^2) \)} \medskip
 \centerline{\( x = (2mn)/(m^2 + n^2) \)} \medskip
 
-Substituting the newly derived value of x to solve for y will yield the following. \newline
+\textit{Substituting the newly derived value of x to solve for y will yield the following.} \newline
 
 \centerline{\( y = (m/n)x - 1 \)} \medskip
 \centerline{\( (2m^2)/(m^2 + n^2) - 1 \)} \medskip
 \centerline{\( (2m^2 - m^2 + n^2)/(m^2 + n^2) \)} \medskip
 \centerline{\( (m^2 - n^2)/(m^2 + n^2) \)} \medskip
 
-Since both the values of x and y have been derived, the proof is now complete. \newline
+\textit{Since x and y are in the form x = $a/c$ and y = $b/c$, it is apparent that \( x = 4mn, y = m^2 - n^2,\) and \( z = m^2 + n^2 \).} \newline
+
+\textit{Conversely, let m and n be integers. Assume \( x = 4mn, y = m^2 - n^2,\) and \( z = m^2 + n^2 \). We wish to prove that (x,y,z) formulate a Pythagorean relationship \(x^2 + y^2 = z^2\). We may substitute each value of x, y, and z into the Pythagorean equation and verify if the formula produces a true statement for all real numbers. } \newline
+
+\centerline{(\(2mn)^2+(m^2-n^2)^2=(m^2+n^2)^2\)} \medskip
+\centerline{\( n^4 +2m^2n^2 + m^4 = 4mm^2n^2 + m^4 - 2m^2n^2 + n^4 \)} \medskip
+\centerline{\( n^4 + +2m^2n^2 + m^4 = n^4 + +2m^2n^2 + m^4 \)} \medskip
+
+\textit{Since the algebraic form is true for all values of m and n, the relationship \( x = 4mn, y = m^2 - n^2,\) and \( z = m^2 + n^2 \) is valid according to the Pythagorean theorem. Therefore, the biconditional statement is proven.}
 
 \centerline{\includegraphics[scale=0.5]{Images/Unit_Circule.png}} \medskip
-\centerline{\textit{Figure 6: Intersection diagram for the Euclidean proof.}}
+\centerline{\textit{Figure 7: Intersection diagram for the Euclidean proof (Tailor, 2021).}} \medskip
 
 \section{Conclusion}
 
-The Pythagorean theorem is directly applicable to architecture and construction. In engineering applications, the Pythagorean theorem is used to construct free body diagrams of objects in Cartesian space. The Pythagorean theorem is arguably the most well-known theorem in mathematics, and its contributions serve as a cornerstone of geometry.
+The Pythagorean theorem is directly applicable to architecture and construction. In engineering applications, the Pythagorean theorem is used to construct free body diagrams of objects in Cartesian space. Besides a simple geometric relationship taught in Western middle school, the Pythagorean theorem is arguably the most well-known theorem in mathematics. Regardless of whether Pythagoras is the original mathematician to prove the relationship, his contributions to mathematics helped formulate the basis of geometry for following centuries. The concepts of non-right triangle trigonometry, a concept used frequently in multiple scientific and engineering disciplines, were adapted from the principles of the Pythagorean theorem. The beauty of the Pythagorean theorem--and the various scholars who helped derive it--lies in its applicability to various situations.
 
 \pagebreak
-
-\section{References}
-
-https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_Pythagoras/
-
-https://www.isinj.com/mt-usamo/Elementary%20Number%20Theory%20-%20Underwood%20Dudley%20(2008).pdf
-
-https://www.cut-the-knot.org/pythagoras/
-
-https://www.maa.org/press/periodicals/convergence/mathematical-treasure-james-a-garfields-proof-of-the-pythagorean-theorem
-
-https://paymentproof2020.blogspot.com/1974/05/proof-pythagorean-theorem.html
-
-https://www.newyorker.com/tech/annals-of-technology/einsteins-first-proof-pythagorean-theorem
-
-https://geometryhelp.net/converse-of-the-pythagorean-theorem/
-
-https://www.youtube.com/watch?v=xoU8bIOXdjw
-
-https://www.adrian.idv.hk/2012-08-09-euclid/
-
-https://medium.com/math-simplified/proving-euclids-formula-using-basic-geometry-30fb04ddd8c4
 
 \end{document}
